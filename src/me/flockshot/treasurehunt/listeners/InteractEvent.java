@@ -21,21 +21,18 @@ public class InteractEvent implements Listener
 	
 	@EventHandler
 	public void onAction(PlayerInteractEvent event)
-	{
-		
+	{		
 		Player player = event.getPlayer();		
 			
 		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 		{
-			if(event.getClickedBlock() instanceof Chest)
-			{
-				Inventory inv = ((Chest) event.getClickedBlock()).getInventory();
-				if(plugin.getTCManager().getTreasureChest(inv.getLocation())!=null)
-				{
-					plugin.getTCManager().getTreasureChest(inv.getLocation()).loot(player);
-				}
-			}
+		    if(event.getClickedBlock() instanceof Chest)
+		    {
+                Inventory inv = ((Chest) event.getClickedBlock()).getInventory();
+                
+                if(plugin.getTCManager().getTreasureChest(inv.getLocation())!=null)
+                    plugin.getTCManager().getTreasureChest(inv.getLocation()).loot(player);
+            }
 		}
-
 	}
 }

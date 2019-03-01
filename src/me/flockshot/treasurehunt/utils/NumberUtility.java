@@ -6,7 +6,6 @@ import java.text.ParsePosition;
 
 public class NumberUtility
 {
-
 	public static boolean isNum(String str)
 	{
 		NumberFormat formatter = NumberFormat.getInstance();

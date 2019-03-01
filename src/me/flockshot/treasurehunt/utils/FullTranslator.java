@@ -9,7 +9,6 @@ public class FullTranslator
 		ColorTranslator ct = new ColorTranslator();
 		PlaceholderTranslator pt = new PlaceholderTranslator();
 		
-		return ct.getTranslatedString(pt.getTranslatedString(player, string));
-		
+		return ct.getTranslatedString(pt.getTranslatedString(player, string));		
 	}
 }

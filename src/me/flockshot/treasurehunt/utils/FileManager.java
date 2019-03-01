@@ -48,47 +48,38 @@ public class FileManager
 		return false;
 	}
 	
-	public void saveChestFile(FileConfiguration config, String name)
-	{
+	public void saveChestFile(FileConfiguration config, String name) {
 		saveFile(config, new File(plugin.getChestsDir(), name+".yml"));
 	}
-	public void saveTypeFile(FileConfiguration config, String name)
-	{
+	public void saveTypeFile(FileConfiguration config, String name)	{
 		saveFile(config, new File(plugin.getTypesDir(), name+".yml"));
 	}
 	
 	private void saveFile(FileConfiguration config, File file)
 	{
-		
-		try {
+	    try {
 			config.save(file);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public File createFile(String name, File dir)
 	{
-		// TODO Auto-generated method stub
 		File file = new File(dir, name+".yml");
 		if(!file.exists())
-		{
-			try
-			{
+			try	{
 				file.createNewFile();
 			}
-			catch (IOException e)
-			{
+			catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		
 		return file;
 	}
 	
 	public boolean deleteFile(String name, File dir)
 	{
-		// TODO Auto-generated method stub
 		File file = new File(dir, name+".yml");
 		return file.delete();
 	}
@@ -117,6 +108,7 @@ public class FileManager
 		// TODO Auto-generated method stub
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		config.set("Commands", treasureType.getCommandsList());
+		
 		for(TreasureItem item : treasureType.getItems())
 		{
 			String path = "Items."+item.getName();
@@ -134,17 +126,14 @@ public class FileManager
 			{
 				List<String> enchants = new ArrayList<String>();
 				for(Enchantment e : meta.getEnchants().keySet())
-				{
 					enchants.add(e.getName() +":"+meta.getEnchants().get(e));
-				}
+
 				config.set(path+".Enchants", enchants);
 			}
 			
 			List<String> flags = new ArrayList<String>();
 			for(ItemFlag flag : meta.getItemFlags())
-			{
 				flags.add(flag.toString());
-			}
 			
 			config.set(path+".Name", meta.hasDisplayName() ? meta.getDisplayName() : "");
 			config.set(path+".Lore", meta.hasLore() ? meta.getLore() : new ArrayList<String>());

@@ -36,8 +36,7 @@ public class TreasureTypeManager
 		this.plugin = plugin;
 		fileManager = new FileManager(plugin);
 		setTreasureTypes();
-	}
-	
+	}	
 	
 	private void setTreasureTypes()
 	{
@@ -53,13 +52,11 @@ public class TreasureTypeManager
 				typeFile = YamlConfiguration.loadConfiguration(listOfFiles[i]);
 				//Location loc = new Location();
 		    	fileName = listOfFiles[i].getName();
-		    	fileName = fileName.replace(".yml", "");
-		    	
+		    	fileName = fileName.replace(".yml", "");		    	
 
 		    	List<TreasureCommand> commands = new TreasureCommandManager(plugin).getTreasureCommands(typeFile, "Commands");
 		    	List<TreasureItem> items = new TreasureItemManager(plugin).getItems(typeFile, "Items");
-		    	
-		    	
+		    			    	
 		    	if(commands == null || items==null)
 		    	{
 		    		plugin.getLogger().log(Level.SEVERE, ChatColor.DARK_RED+"Invalid Config values of "+fileName+" in Types folder");
@@ -73,50 +70,37 @@ public class TreasureTypeManager
 	public TreasureType getTreasureType(String name)
 	{
 		if(treasureTypes.containsKey(name))
-		{
 			return treasureTypes.get(name);
-		}
+
 		else return null;
 	}
 	
-	public boolean exists(String name)
-	{
-		if(treasureTypes.containsKey(name))
-		{
-			return true;
-		}
-		else return false;
+	public boolean exists(String name) {
+		return treasureTypes.containsKey(name);
 	}
 	
-	public void saveAllTypes()
-	{
+	public void saveAllTypes() {
 		fileManager.saveAllTypeFiles(treasureTypes);
 	}
 
-
 	public void addType(String type, ItemStack item)
 	{
-		// TODO Auto-generated method stub
 		List<TreasureItem> items = new ArrayList<TreasureItem>();
-		if(item==null) item = new ItemStack(Material.IRON_INGOT, 1);
+		
+		if(item==null)
+		    item = new ItemStack(Material.IRON_INGOT, 1);
 		
 		items.add(new TreasureItem(item.getItemMeta()!=null ? item.getItemMeta().getDisplayName() : item.getType()+"", item, 0, 100.0));
 		TreasureType tType = new TreasureType(type, items, new ArrayList<TreasureCommand>());
 		
 		treasureTypes.put(type, tType);
 		fileManager.saveTypeFile(fileManager.setConfigurationForTreasureType(fileManager.createFile(type, plugin.getTypesDir()), tType), type);
-		
 	}
-
 
 	public boolean delType(String type)
 	{
-		// TODO Auto-generated method stub
-
 		treasureTypes.remove(type);			
 		return fileManager.deleteFile(type, plugin.getTypesDir());		
-		
-		
 	}
 
 }

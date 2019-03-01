@@ -14,13 +14,11 @@ import me.flockshot.treasurehunt.treasuretypes.TreasureType;
 
 public class TreasureChest
 {
-
 	private String name;
 	private Location loc;
 	private boolean looted;
 	private TreasureType type;
-	
-	
+		
 	public TreasureChest(String name, Location location, boolean looted, TreasureType type)
 	{		
 		setName(name);
@@ -31,25 +29,17 @@ public class TreasureChest
 
 	public void loot(Player player)
 	{
-		// TODO Auto-generated method stub
 		if(type.getCommands()!=null)
-		{
 			if(!type.getCommands().isEmpty())
-			{
 				for(TreasureCommand command : type.getCommands())
-				{
 					command.execute(player);			
-				}
-			}
-		}
+
 		setLooted(true);
 	}
 
 	public String getName() {
 		return name;
-	}
-
-	
+	}	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -58,8 +48,6 @@ public class TreasureChest
 	public Location getLocation() {
 		return loc;
 	}
-
-
 	public void setLocation(Location loc) {
 		this.loc = loc;
 	}
@@ -68,8 +56,6 @@ public class TreasureChest
 	public boolean isLooted() {
 		return looted;
 	}
-	
-
 	public void setLooted(boolean looted) {
 		this.looted = looted;
 	}
@@ -78,8 +64,6 @@ public class TreasureChest
 	public TreasureType getType() {
 		return type;
 	}
-	
-
 	public void setType(TreasureType type) {
 		this.type = type;
 	}
@@ -87,19 +71,16 @@ public class TreasureChest
 
 	public void generateLoot()
 	{
-		// TODO Auto-generated method stub
 		if(!isLooted())
 		{
 			Chest chest = (Chest) getLocation().getBlock();
 			Inventory inv = chest.getInventory();
 			inv.clear();
+			
 			if(inv.getViewers()!=null)
-			{
 				for(HumanEntity human : inv.getViewers())
-				{
 					human.closeInventory();
-				}
-			}
+
 			
 			for(TreasureItem tItem : getType().getItems())
 			{
@@ -109,9 +90,7 @@ public class TreasureChest
 					Random rand = new Random();
 					double randomDouble = rand.nextDouble();
 					if(randomDouble<=chance)
-					{
 						inv.setItem(tItem.getSlot(), tItem.getItem());
-					}
 				}
 			}
 		}

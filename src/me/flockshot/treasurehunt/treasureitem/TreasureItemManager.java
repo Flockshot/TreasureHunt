@@ -43,9 +43,6 @@ public class TreasureItemManager
 				String itemName;
 				for(final String key : pathNames.getKeys(false))
 				{
-					// key will now be either '1' or '2'. Keep in mind, if you were to put true as a param in #getKeys, it would return more than '1' or '2'.
-					// For example, it'd also retrun '1.material', '1.slot' etc. You can debug to see yourself.
-					
 					itemName = key;
 					fullPath = path+"."+itemName;
 					
@@ -60,23 +57,20 @@ public class TreasureItemManager
 					List<String> lore = file.contains(fullPath+".Lore") ? new ColorTranslator().getTranslatedLore(file.getStringList(fullPath+".Name")) : null; 
 					List<ItemFlag> flags = file.contains(fullPath+".Flags") ? convertToFlags(file.getStringList(fullPath+".Flags")) : null;
 					
-					
 					if(mat == null || data == -1 || amount == -1 || name == null || lore == null || flags == null || slot == -1 || chance>100 || chance<0)
 					{
 						plugin.getLogger().log(Level.SEVERE, ChatColor.DARK_RED+"Invalid config values of "+file.getName()+" in Types folder");
 						continue;
 					}
+					
 					ItemBuilder item;
-					if(file.contains(fullPath+".Skull")) item = new ItemBuilder(mat, amount, data, enchants, name, lore, flags, file.getString(fullPath+".Skull"));
+					if(file.contains(fullPath+".Skull"))
+					    item = new ItemBuilder(mat, amount, data, enchants, name, lore, flags, file.getString(fullPath+".Skull"));
 					else if(file.contains(fullPath+".R") && file.contains(fullPath+".G") && file.contains(fullPath+".B"))
-					{
 						item = new ItemBuilder(mat, amount, data, enchants, name, lore, flags, file.getInt(fullPath+".R"), file.getInt(fullPath+".G"), file.getInt(fullPath+".B"));
-					}
 					
 					item = new ItemBuilder(mat, amount, data, enchants, name, lore, flags);
 					 
-					
-					//TODO DENY MESSAGE TO BE AN EVENT TYPE????
 					items.add(new TreasureItem(itemName, item.createItem(), slot, chance));					
 				}
 			}
@@ -89,10 +83,8 @@ public class TreasureItemManager
 	{
 		List<ItemFlag> flags = new ArrayList<ItemFlag>();
 		for( String key : stringFlags)
-		{
 			flags.add(ItemFlag.valueOf(key));
-		}
-		
+
 		return flags;
 	}
 }

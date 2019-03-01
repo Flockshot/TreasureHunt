@@ -25,7 +25,7 @@ public class TreasureCommandManager
 		if(file.contains(path))
 		{
 			for(final String key : file.getStringList(path))
-			{			
+			{	
 				String value = getValue(key);
 				double chance =  getChance(key);
 				
@@ -34,22 +34,19 @@ public class TreasureCommandManager
 		}
 		
 		return treasureCommands;
-	}
-	
-	
+	}	
 
 	//TODO TEST IT
 	private String getValue(String val)
 	{
 		if(val.contains("]"))
 		{
-			val = val.substring(val.indexOf("]"));
+			val = val.substring(val.indexOf("]")+1);
 			while(val.startsWith(" "))
 			{
 				val = val.substring(1);
 			}
-		}
-		
+		}		
 		return val;
 	}
 	

@@ -19,9 +19,8 @@ public class EnchantmentUtility
 		
 		Map<Enchantment, Integer> enchs = new HashMap<Enchantment, Integer>();
 		if(ench.isEmpty())
-		{
 			return enchs;
-		}
+
 		Iterator<String> it = ench.iterator();
 		while(it.hasNext())
 		{
@@ -29,10 +28,8 @@ public class EnchantmentUtility
 			
 			Enchantment enchant = getEnchant(current);
 			int lvl = getLevel(current);
-			
-			
-			enchs.put(enchant, lvl);
-			
+
+			enchs.put(enchant, lvl);			
 		}
 		
 		return enchs;
@@ -48,7 +45,7 @@ public class EnchantmentUtility
 			String[] split = ench.split(":");	
 			enchant = NumberUtility.isNum(split[0]) ? Enchantment.getById(Integer.parseInt(split[0])) : Enchantment.getByName(split[0]);		
 		}
-		else Bukkit.broadcastMessage(ChatColor.DARK_RED+"Invalid enchant format of in file.");
+		else Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED+"Invalid enchant format of in file.");
 		
 		return enchant;
 	}
@@ -62,24 +59,19 @@ public class EnchantmentUtility
 			String[] split = ench.split(":");
 			lvl = NumberUtility.isNum(split[1]) ? Integer.parseInt(split[1]) : 0;
 		}
-		else Bukkit.broadcastMessage(ChatColor.DARK_RED+"Invalid enchant format of in file.");
+		else Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED+"Invalid enchant format of in file.");
 		
 		return lvl;
 	}
 	
 	public boolean compareEnchant(ItemStack item, String ench)
-	{
-		 
+	{		 
 		 Enchantment enchant = getEnchant(ench);
 		 int lvl = getLevel(ench);
 		 
 		 if(item.containsEnchantment(enchant))
-		 {
 			 if(item.getEnchantmentLevel(enchant) >= lvl)
-			 {
 				 return true;
-			 }
-		 }
 
 		return false;
 	}

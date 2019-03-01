@@ -13,7 +13,7 @@ public class ColorTranslator
 		List<String> clore = new ArrayList<String>();
 		
 		if(lore!=null && !lore.isEmpty())
-		{			
+		{
 			Iterator<?> it = lore.iterator();
 			String cur;
 			

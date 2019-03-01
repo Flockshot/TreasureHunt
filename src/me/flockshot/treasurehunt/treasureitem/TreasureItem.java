@@ -27,53 +27,37 @@ public class TreasureItem
 		List<String> flags = new ArrayList<String>();
 		
 		if(getItem().getItemMeta()!=null)
-		{
 			if(getItem().getItemMeta().getItemFlags()!=null)
-			{
 				for(ItemFlag flag : getItem().getItemMeta().getItemFlags())
-				{
 					flags.add(flag.toString());
-				}
-			}
-		}
+
 		return flags;		
 	}
 	
 	public double getChance() {
 		return chance;
 	}
-
-
 	public void setChance(double chance) {
 		this.chance = chance;
 	}
 
-
 	public int getSlot() {
 		return slot;
 	}
-
-
 	public void setSlot(int slot) {
 		this.slot = slot;
 	}
 
-
 	public ItemStack getItem() {
 		return item;
 	}
-
-
 	public void setItem(ItemStack item) {
 		this.item = item;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
-
 	public void setName(String name) {
 		this.name = name;
 	}

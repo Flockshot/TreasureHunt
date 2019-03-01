@@ -23,18 +23,17 @@ public class TreasureCommand
 		setChance(chance);
 	}
 	
-	public String toString()
-	{
+	public String toString() {
 		return "["+chance+"]"+command;
 	}
 	
 	public String getCommand() {
 		return command;
 	}
-	public void setCommand(String value) {
-		
+	public void setCommand(String value) {		
 		this.command = value;
 	}
+	
 	public double getChance() {
 		return chance;
 	}
@@ -81,15 +80,13 @@ public class TreasureCommand
 						{
 							//if(PrestigeManager.isLastPrestige(player))
 							//{
-								if(PrestigeManager.getNextPrestige(player)!=null)
-								{
-									value = (int) ((percent/100) * PrestigeManager.getNextPrestige(player).getCost());
-								}
+						    if(PrestigeManager.getNextPrestige(player)!=null)
+                            {
+                                value = (int) ((percent/100) * PrestigeManager.getNextPrestige(player).getCost());
+                            }	
 								
 							//}
-						}
-						
-						
+						}						
 					}
 					else
 					{
@@ -102,16 +99,13 @@ public class TreasureCommand
 							value = (int) ((percent/100)*cost);
 						}
 					}
-					
-					
 				}
-				
 				
 				cmd.replace("RankPercent("+rankPercent+")", value+"");
 			}
 		}
+		
 		cmd = new PlaceholderTranslator().getTranslatedString(player, cmd); 
-
 	    Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), cmd);
 	}
 	
