@@ -1,0 +1,20 @@
+waitAfterFirstAction: 15
+waitAfterSecondAction: 15
+
+allowPhysical: true
+defaultActionBarToggle: true
+defaultSoundToggle: true
+defaultSound: UI_BUTTON_CLICK
+soundVolume: 1
+soundPitch: 0
+
+actionRight: "R"
+actionLeft: "L"
+
+actionBarFormatFirst: "&a%firstaction% &8- &7_ &8- &7_"
+actionBarFormatSecond: "&a%firstaction% &8- &a%secondaction% &8- &7_"
+actionBarFormatThird: "&a%firstaction% &8- &a%secondaction% &8- &a%thirdaction%"
+
+actionBardurationFirst: 15
+actionBardurationSecond: 15
+actionBardurationThird: 5

@@ -1,0 +1,62 @@
+main: me.flockshot.treasurehunt.TreasureHuntPlugin
+name: TreasureHunt
+description: Add Treasure Chest to the world
+version: 1.0
+authors: [Flockshot]
+softdepend: [EZRanksPro , EZPrestige]
+commands:
+  treasurehunt:
+    description: The main command for treasurehunt
+    aliases: [th, treasureh, thunt]
+permissions:
+  treasurehunt.*:
+    description: TreasureHunt permission
+    deafult: op
+    children:
+      treasurehunt.admin: true
+      treasurehunt.admin.additems: true
+      treasurehunt.admin.additem: true
+      treasurehunt.admin.reset: true
+      treasurehunt.admin.addchest: true
+      treasurehunt.admin.removechest: true
+      treasurehunt.admin.reload: true
+      treasurehunt.admin.createtype: true
+      treasurehunt.admin.deltype: true
+  treasurehunt.admin:
+    description: TreasureHunt command permission
+    default: op
+    children:
+      treasurehunt.admin.additems: true
+      treasurehunt.admin.additem: true
+      treasurehunt.admin.reset: true
+      treasurehunt.admin.addchest: true
+      treasurehunt.admin.removechest: true
+      treasurehunt.admin.reload: true
+      treasurehunt.admin.createtype: true
+      treasurehunt.admin.deltype: true
+  treasurehunt.admin.additems:
+    description: Permission to set items in treasure chest
+    default: op
+  treasurehunt.admin.additem:
+    description: Permission to set item in treasure chest
+    default: op
+  treasurehunt.admin.reset:
+    description: Permission to reset all the treasure chests
+    default: op
+  treasurehunt.admin.addchest:
+    description: Permission to add a treasure chest
+    default: op
+  treasurehunt.admin.removechest:
+    description: Permission to remove a treasure chest
+    default: op
+  treasurehunt.admin.reload:
+    description: Permission to reload the plugin
+    default: op
+  treasurehunt.admin.createtype:
+    description: Permission to create a treasure type
+    default: op
+  treasurehunt.admin.deltype:
+    description: Permission to delete a treasure type
+    default: op
+    
+  
