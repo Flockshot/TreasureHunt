@@ -2,6 +2,7 @@ package me.flockshot.treasurehunt.commands;
 
 import java.util.HashSet;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -107,16 +108,15 @@ public class TreasureHuntCommand implements CommandExecutor {
 			{
 				if(!plugin.getTTypeManager().exists(type))
 				{
-					ItemStack item;
+					ItemStack item = new ItemStack(Material.IRON_INGOT, 1);;
 					if(((Player) sender).getInventory().getItemInMainHand() != null)
-						item = ((Player) sender).getInventory().getItemInMainHand();
-					else
-						item = new ItemStack(Material.IRON_INGOT, 1);
+					    if(!((Player) sender).getInventory().getItemInMainHand().getType().equals(Material.AIR))
+                            item = ((Player) sender).getInventory().getItemInMainHand();
 
 					plugin.getTTypeManager().addType(type, item);
 					sender.sendMessage(ChatColor.DARK_GREEN + "Created a new treasure type");
 				}
-				else sender.sendMessage(ChatColor.DARK_RED + "That Treasure type does not exist");
+				else sender.sendMessage(ChatColor.DARK_RED + "That Treasure type already exists");
 			}
 			else sender.sendMessage(ChatColor.YELLOW + command + "createtype [type]");
 		}
@@ -135,18 +135,22 @@ public class TreasureHuntCommand implements CommandExecutor {
 					{
 					    @SuppressWarnings("deprecation")
 						Block block = ((Player) sender).getTargetBlock((HashSet<Byte>) null, 50);
-						if (block == null)
+						if(block == null)
 						{
 							sender.sendMessage(ChatColor.DARK_RED + "The block you are looking at is not a chest");
 							return;
 						}
-						if (block.getType().equals(Material.CHEST))
+						if(block.getType().equals(Material.CHEST))
 						{
 							// To get the inventory location, incase the chest is large.
-							Location loc = ((Chest) block).getBlockInventory().getLocation();
+						    
+						    
+						    Location loc = ((Chest) block.getState()).getInventory().getLocation();						    
 
-							plugin.getTCManager().createTreasureChest(new TreasureChest(name, loc, false,
-							plugin.getTTypeManager().getTreasureType(name)));
+						    
+							Bukkit.broadcastMessage(loc+"");
+
+							plugin.getTCManager().createTreasureChest(new TreasureChest(name, loc, false, plugin.getTTypeManager().getTreasureType(type)));
 
 							sender.sendMessage(ChatColor.DARK_GREEN + "Successfully created a new Treasure Chest");
 						}
@@ -191,7 +195,7 @@ public class TreasureHuntCommand implements CommandExecutor {
 			}
 			else
 			{
-				if (plugin.getTCManager().exists(name))
+				if(plugin.getTCManager().exists(name))
 				{
 					String success = plugin.getTCManager().removeTreasureChest(name) ? "§2Successfully removed"	: "§4Failed to remove";
 					sender.sendMessage(success + " the treasure chest with name " + name);

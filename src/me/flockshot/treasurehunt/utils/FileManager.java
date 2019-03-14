@@ -122,37 +122,47 @@ public class FileManager
 			config.set(path+".Amount", itemStack.getAmount());
 			config.set(path+".Data", itemStack.getDurability());
 			
-			if(meta.hasEnchants())
-			{
-				List<String> enchants = new ArrayList<String>();
-				for(Enchantment e : meta.getEnchants().keySet())
-					enchants.add(e.getName() +":"+meta.getEnchants().get(e));
-
-				config.set(path+".Enchants", enchants);
-			}
-			
 			List<String> flags = new ArrayList<String>();
-			for(ItemFlag flag : meta.getItemFlags())
-				flags.add(flag.toString());
 			
-			config.set(path+".Name", meta.hasDisplayName() ? meta.getDisplayName() : "");
-			config.set(path+".Lore", meta.hasLore() ? meta.getLore() : new ArrayList<String>());
+			if(itemStack.hasItemMeta())
+			{
+			    if(meta.hasEnchants())
+	            {
+	                List<String> enchants = new ArrayList<String>();
+	                for(Enchantment e : meta.getEnchants().keySet())
+	                    enchants.add(e.getName() +":"+meta.getEnchants().get(e));
+
+	                config.set(path+".Enchants", enchants);
+	            }
+
+			    if((itemStack.getTypeId() == 397) && (itemStack.getData().getData() == 3))
+		        {
+			        SkullMeta skull = (SkullMeta)meta;
+			        if(skull!=null)
+			        {
+			            config.set(path+".Skull", skull.getOwner()); 
+			        }
+		        }
+		        
+			    if(meta instanceof LeatherArmorMeta)
+			    {
+			        LeatherArmorMeta lam = (LeatherArmorMeta)meta;
+			        config.set(path+"R", lam.getColor().getRed());
+			        config.set(path+"G", lam.getColor().getGreen());
+			        config.set(path+"B", lam.getColor().getBlue());
+			    }
+			    
+		         for(ItemFlag flag : meta.getItemFlags())
+		                flags.add(flag.toString());
+			}
+
+			
+			config.set(path+".Name", itemStack.hasItemMeta() ? meta.hasDisplayName() ? meta.getDisplayName() : "" : "");
+			config.set(path+".Lore", itemStack.hasItemMeta() ? meta.hasLore() ? meta.getLore() : new ArrayList<String>() : new ArrayList<String>());
 			config.set(path+".Flags", flags);
 			
 			
-			if((itemStack.getTypeId() == 397) && (itemStack.getData().getData() == 3))
-	        {
-				SkullMeta skull = (SkullMeta)meta;
-				config.set(path+".Skull", skull.getOwner());
-	        }
-		
-			if((meta instanceof LeatherArmorMeta))
-			{
-	            LeatherArmorMeta lam = (LeatherArmorMeta)meta;
-	            config.set(path+"R", lam.getColor().getRed());
-	            config.set(path+"G", lam.getColor().getGreen());
-	            config.set(path+"B", lam.getColor().getBlue());
-	        }
+
 			/*
 	        if ((itemStack.getType().equals(Material.WRITTEN_BOOK)) || (itemStack.getType().equals(Material.BOOK_AND_QUILL)))
 			{

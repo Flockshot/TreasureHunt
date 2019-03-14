@@ -73,7 +73,7 @@ public class TreasureChest
 	{
 		if(!isLooted())
 		{
-			Chest chest = (Chest) getLocation().getBlock();
+			Chest chest = (Chest) getLocation().getBlock().getState();
 			Inventory inv = chest.getInventory();
 			inv.clear();
 			

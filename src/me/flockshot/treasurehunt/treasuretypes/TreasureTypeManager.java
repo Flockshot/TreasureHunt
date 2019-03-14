@@ -90,7 +90,7 @@ public class TreasureTypeManager
 		if(item==null)
 		    item = new ItemStack(Material.IRON_INGOT, 1);
 		
-		items.add(new TreasureItem(item.getItemMeta()!=null ? item.getItemMeta().getDisplayName() : item.getType()+"", item, 0, 100.0));
+		items.add(new TreasureItem(item.hasItemMeta() ? item.getItemMeta().getDisplayName() : item.getType()+"", item, 0, 100.0));
 		TreasureType tType = new TreasureType(type, items, new ArrayList<TreasureCommand>());
 		
 		treasureTypes.put(type, tType);

@@ -31,8 +31,9 @@ public class TreasureHuntPlugin extends JavaPlugin
 		getConfig().options().copyDefaults(true);
 		saveConfig();		
 		
-		setTCManager(new TreasureChestManager(this));
 		setTTypeManager(new TreasureTypeManager(this));
+		setTCManager(new TreasureChestManager(this));
+		
 		
 		int min = 20*60*10;
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable()

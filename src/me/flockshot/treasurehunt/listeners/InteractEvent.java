@@ -1,5 +1,6 @@
 package me.flockshot.treasurehunt.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,12 +27,12 @@ public class InteractEvent implements Listener
 			
 		if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
 		{
-		    if(event.getClickedBlock() instanceof Chest)
+		    if(event.getClickedBlock().getState() instanceof Chest)
 		    {
-                Inventory inv = ((Chest) event.getClickedBlock()).getInventory();
-                
+                Inventory inv = ((Chest) event.getClickedBlock().getState()).getInventory();
                 if(plugin.getTCManager().getTreasureChest(inv.getLocation())!=null)
-                    plugin.getTCManager().getTreasureChest(inv.getLocation()).loot(player);
+                    if(!plugin.getTCManager().getTreasureChest(inv.getLocation()).isLooted())
+                        plugin.getTCManager().getTreasureChest(inv.getLocation()).loot(player);
             }
 		}
 	}
